@@ -23,6 +23,8 @@
 #include <TCanvas.h>
 #include <TBenchmark.h>
 #include "reader.h"
+// #include "hipo4/reader.h"
+// #include <hipo/reader.h>
 
 #include "spring2019_preskimmed.C"
 // Header file for the classes stored in the TTree if any.
@@ -32,19 +34,56 @@
 class analysis
 {
 public:
-    TTree *fChain;  //! pointer to the analyzed TTree or TChain
-    Int_t fCurrent; //! current Tree number in a TChain
-    TTree *pDVCS_tree, *nDVCS_tree;
+    // ---------------------------------------------------------------------
+    // ROOT I/O AND TREE MANAGEMENT
+    // ---------------------------------------------------------------------
 
-    TFile *outfile;
-    TChain *chain;
-    std::string run;
-    std::string channels;
+    TTree *fChain; //! Pointer to the TTree/TChain currently being analyzed.
+                   //  ROOT uses this to iterate over events.
+
+    Int_t fCurrent; //! current Tree number in a TChain //! Keeps track of which file inside the TChain is active.
+                    //  Required because a TChain contains many HIPO files converted to ROOT trees.
+
+    TTree *pDVCS_tree, *nDVCS_tree; //! Output trees:
+                                    //  pDVCS_tree → stores DVCS events on a proton (free proton target)
+                                    //  nDVCS_tree → stores DVCS events on a neutron (bound neutron in deuterium)
+
+    TFile *outfile; //! ROOT file where the output trees are written.
+
+    TChain *chain; //! The chain of input files (.hipo) selected by the user.
+                   //  All preskimmed files for the dataset are loaded here.
+
+    std::string run;      //! Label identifying the run range (e.g. "6156_6157_pDVCS").
+    std::string channels; //! Indicates the reaction channel ("pDVCS" or "nDVCS").
+
+    // ---------------------------------------------------------------------
+    // CLAS12 TORUS MAGNET CONFIGURATION
+    // ---------------------------------------------------------------------
 
     bool inbending = true;
+    //! True when torus magnetic field bends electrons inward.
+    //  Spring 2019 (RunGroup B) is inbending by default.
+    //  Spring 2019 → inbending (Torus polarity: -1)
+    //  Spring 2020 → inbending (Torus polarity: -1)
+    //  Fiducial cuts depend strongly on bending direction.
+
     bool outbending = false;
+    //! Complementary flag for outbending configuration.
+    //  Some runs use opposite torus polarity → different fiducials.
+    //  Fall 2019 → outbending (Torus polarity: +1)
+
+    // ---------------------------------------------------------------------
+    // NEUTRON–TRACK ASSOCIATION FLAGS
+    // ---------------------------------------------------------------------
 
     bool matched_track_to_fN = false;
+    //! Flag indicating whether a neutral candidate (neutron)
+    //  is associated with a charged track that left a signal in the CND/CTOF.
+    //  Used to reject fake neutrons (charged hadrons misidentified as neutral).
+
+    // ---------------------------------------------------------------------
+    // BANK ENTRY COUNTERS (NUMBER OF ROWS IN EACH CLAS12 BANK)
+    // ---------------------------------------------------------------------
 
     int Cal_Nentries = 0;
     int Traj_Nentries = 0;
@@ -705,7 +744,6 @@ void analysis::AddBranches()
     nDVCS_tree->Branch("strip_Nuc_CTOF_layermult", &strip_Nuc_CTOF_layermult);
     nDVCS_tree->Branch("strip_Nuc_CTOF_dedx", &strip_Nuc_CTOF_dedx);
     nDVCS_tree->Branch("matched_fN", &matched_fN);
-   
 
     nDVCS_tree->Branch("Phi_Nuc", &Phi_Nuc);
     nDVCS_tree->Branch("Phi_Ph", &Phi_Ph);
