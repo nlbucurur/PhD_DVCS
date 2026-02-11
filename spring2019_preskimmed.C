@@ -1,276 +1,67 @@
+#include <TChain.h>
+#include <TSystemDirectory.h>
+#include <TSystemFile.h>
+#include <TList.h>
+#include <TString.h>
 
-TChain *hipochain(std::string run, std::string channel, std::string path = "")
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+static std::string sidisdvcs_dir_for_run(const std::string &runs)
 {
+    if (runs == "spring2019")
+        return "/lustre24/expphy/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass2/v0/dst/train/sidisdvcs";
+    if (runs == "fall2019")
+        return "/lustre24/expphy/cache/clas12/rg-b/production/recon/fall2019/torus+1/pass2/v1/dst/train/sidisdvcs";
+    if (runs == "spring2020")
+        return "/lustre24/expphy/cache/clas12/rg-b/production/recon/spring2020/torus-1/pass2/v1/dst/train/sidisdvcs";
 
-    if (path == "")
+    // Default: treat `runs` itself as a directory path
+    return runs;
+}
+
+TChain *hipochain(std::string runs, std::string chains)
+{
+    (void)chains; // same train for pDVCS/nDVCS; keep argument for compatibility
+
+    std::string dir = sidisdvcs_dir_for_run(runs);
+    if (!dir.empty() && dir.back() != "/")
+        dir += "/";
+
+    auto *chain = new TChain("hipo");
+
+    TSystemDirectory sysdir("sidisdvcs_dir", dir.c_str());
+    TList *list = sysdir.GetListOfFiles();
+    if (!list)
     {
-        if (period == "spring2019")
-            path = "/lustre24/expphy/cache/clas12/rg-b/production/recon/spring2019/torus-1/pass2/v0/dst/train/sidisdvcs/";
-        else if (period == "fall2019")
-            path = "/lustre24/expphy/cache/clas12/rg-b/production/recon/fall2019/torus+1/pass2/v1/dst/train/sidisdvcs/";
-        else if (period == "spring2020")
-            path = "/lustre24/expphy/cache/clas12/rg-b/production/recon/spring2020/torus-1/pass2/v1/dst/train/sidisdvcs/";
-        else {
-            std::cerr << "ERROR: unknown period " << period << std::endl;
-            return nullptr;
-        }
+        std::cerr << "ERROR: Could not list directory: " << dir << std::endl;
+        return chain;
     }
 
-    cout << " =============================================================================" << endl;
-    cout << " === path  = " << path << endl;
-    cout << " === run   = " << run << endl;
-    cout << " =============================================================================" << endl;
-    TChain *chain = new TChain(run.c_str(), "");
+    std::vector<std::string> files;
 
-    chain->AddFile(std::string(path + "sidisdvcs_006156_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006157_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006164_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006167_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006168_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006169_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006170_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006189_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006190_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006191_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006193_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006194_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006197_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006198_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006199_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006200_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006201_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006202_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006204_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006206_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006208_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006209_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006210_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006214_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006215_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006216_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006218_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006219_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006220_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006221_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006222_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006223_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006224_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006225_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006226_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006227_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006233_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006235_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006236_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006237_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006239_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006240_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006241_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006242_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006243_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006244_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006245_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006247_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006248_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006249_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006250_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006251_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006252_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006253_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006254_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006255_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006256_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006257_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006258_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006259_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006260_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006262_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006263_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006265_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006266_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006285_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006286_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006287_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006288_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006289_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006296_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006298_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006299_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006302_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006303_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006305_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006307_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006308_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006310_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006311_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006313_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006321_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006322_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006323_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006326_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006327_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006328_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006329_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006330_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006331_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006333_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006334_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006335_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006336_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006337_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006338_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006339_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006340_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006341_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006342_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006346_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006347_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006348_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006349_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006350_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006351_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006352_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006353_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006354_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006356_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006357_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006359_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006361_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006362_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006363_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006366_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006367_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006368_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006369_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006370_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006371_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006373_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006374_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006377_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006378_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006379_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006380_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006381_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006382_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006383_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006384_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006385_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006386_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006389_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006396_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006399_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006420_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006421_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006422_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006426_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006428_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006429_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006430_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006431_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006432_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006433_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006437_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006442_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006443_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006444_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006445_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006446_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006447_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006448_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006449_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006450_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006451_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006452_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006453_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006454_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006455_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006456_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006457_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006458_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006459_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006460_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006461_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006462_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006463_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006464_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006465_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006466_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006467_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006468_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006470_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006471_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006472_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006473_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006474_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006475_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006476_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006479_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006481_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006482_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006483_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006484_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006485_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006486_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006488_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006489_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006491_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006492_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006498_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006499_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006501_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006502_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006510_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006511_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006512_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006513_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006514_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006515_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006516_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006522_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006523_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006524_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006525_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006546_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006547_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006548_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006549_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006550_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006551_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006557_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006558_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006559_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006560_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006561_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006562_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006563_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006565_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006566_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006567_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006568_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006569_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006570_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006571_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006572_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006573_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006576_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006577_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006578_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006581_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006582_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006585_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006586_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006587_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006589_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006590_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006591_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006592_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006593_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006595_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006596_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006597_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006598_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006599_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006601_preskim_" + ".hipo").c_str());
-    chain->AddFile(std::string(path + "sidisdvcs_006603_preskim_" + ".hipo").c_str());
+    TIter it(files);
+    while (auto* obj = it())
+    {
+        auto* f = dynamic_cast<TSystemFile*>(obj);
+        if (!f) = continue;
+        TSTring name = f->GetName();
+        if (f->IsDirectory())
+            continue;
+        
+        // keep only sidisdvcs_*.hipo
+        if (!name.BeginsWith("sidisdvcs_"))
+            continue;
+        if (!name.EndsWith(".hipo"))
+            continue;
+
+        TString full = TString(dir) + "/" + name;
+        chain->AddFile(Full.Data());
+    }
+
+    std::cout << "Added " << chain->GetListOfFiles()->GetLast() + 1
+              << " files from " << dir << std::endl;
 
     return chain;
 }
