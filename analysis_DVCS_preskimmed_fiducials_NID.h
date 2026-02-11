@@ -15,6 +15,7 @@
 #include <iostream>
 #include <chrono>
 #include <TTree.h>
+#include <string>
 #include <TApplication.h>
 #include <TDatabasePDG.h>
 #include <TLorentzVector.h>
@@ -26,9 +27,12 @@
 // #include "hipo4/reader.h"
 // #include <hipo/reader.h>
 
-#include "spring2019_preskimmed.C"
+// #include "spring2019_preskimmed.C"
 // Header file for the classes stored in the TTree if any.
 #include "vector"
+
+class TChain;
+TChain *hipochain(std::string runs, std::string chains);
 
 class analysis
 {
@@ -387,8 +391,8 @@ public:
 
     hipo::event event;
 
-    analysis(std::string chains, std::string runs);
-    virtual ~analysis();
+    // analysis(std::string chains, std::string runs);
+    // virtual ~analysis();
     virtual void Loop(bool MCbb);
     virtual void build_tree(TLorentzVector targetvector, vector<TLorentzVector> electron, vector<vector<double>> electron_inf, vector<TLorentzVector> nucleon, vector<vector<double>> nucleon_inf, vector<TLorentzVector> photon, vector<vector<double>> photon_inf);
     virtual void build_tree(TLorentzVector NucTarget_Vec, vector<TLorentzVector> electron, vector<vector<double>> electron_inf, vector<TLorentzVector> nucleon, vector<vector<double>> nucleon_inf, vector<TLorentzVector> photon, vector<vector<double>> photon_inf, vector<vector<double>> fnucleon_inf);

@@ -13,6 +13,10 @@ Histograms/*.root
 build/
 out/
 
+analysis_DVCS_preskimmed_fiducials_NID_C_ACLIC.so
+analysis_DVCS_preskimmed_fiducials_NID_C_ACLIC.d
+analysis_DVCS_preskimmed_fiducials_NID_C_ACLIC_dict_rdict.pcm
+
 # logs
 *.log
 
@@ -21,4 +25,4 @@ out/
 .DS_Store
 
 # ROOT ACLiC generated files
-compare_cnd_versions_C_ACLiC_*
+analysis_DVCS_preskimmed_fiducials_NID_C_ACLIC*
