@@ -3,6 +3,7 @@
 #include <TSystemFile.h>
 #include <TList.h>
 #include <TString.h>
+#include <TObjArray.h>
 
 #include <iostream>
 #include <vector>
@@ -26,7 +27,7 @@ TChain *hipochain(std::string runs, std::string chains)
     (void)chains; // same train for pDVCS/nDVCS; keep argument for compatibility
 
     std::string dir = sidisdvcs_dir_for_run(runs);
-    if (!dir.empty() && dir.back() != "/")
+    if (!dir.empty() && dir.back() != '/')
         dir += "/";
 
     auto *chain = new TChain("hipo");
@@ -39,29 +40,35 @@ TChain *hipochain(std::string runs, std::string chains)
         return chain;
     }
 
-    std::vector<std::string> files;
+    std::vector<TString> to_add;
 
-    TIter it(files);
-    while (auto* obj = it())
+    TIter next(list);
+    while (TObject *obj = next())
     {
-        auto* f = dynamic_cast<TSystemFile*>(obj);
-        if (!f) = continue;
-        TSTring name = f->GetName();
+        auto *f = dynamic_cast<TSystemFile *>(obj);
+        if (!f)
+            continue;
+
+        TString name = f->GetName();
         if (f->IsDirectory())
             continue;
-        
+
         // keep only sidisdvcs_*.hipo
         if (!name.BeginsWith("sidisdvcs_"))
             continue;
         if (!name.EndsWith(".hipo"))
             continue;
 
-        TString full = TString(dir) + "/" + name;
-        chain->AddFile(Full.Data());
+        TString full = TString(dir.c_str()) + name;
+        to_add.push_back(full);
     }
 
-    std::cout << "Added " << chain->GetListOfFiles()->GetLast() + 1
-              << " files from " << dir << std::endl;
+    std::sort(to_add.begin(), to_add.end());
+    for (const auto &full : to_add)
+        chain->Add(full);
+
+    const int nfiles = chain->GetListOfFiles() ? chain->GetListOfFiles()->GetEntries() : 0;
+    std::cout << "Added " << nfiles << " files from " << dir << std::endl;
 
     return chain;
 }
