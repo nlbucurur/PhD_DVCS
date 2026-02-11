@@ -33,6 +33,8 @@
 class analysis
 {
 public:
+    analysis(std::string chains, std::string runs);
+    virtual ~analysis();
     // ---------------------------------------------------------------------
     // ROOT I/O AND TREE MANAGEMENT
     // ---------------------------------------------------------------------
