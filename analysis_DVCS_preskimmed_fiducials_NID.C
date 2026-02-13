@@ -1,6 +1,7 @@
 #define analysis_cxx
-#include "spring2019_preskimmed.C"
 #include "analysis_DVCS_preskimmed_fiducials_NID.h"
+#undef analysis_cxx
+#include "spring2019_preskimmed.C"
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
