@@ -1,0 +1,8 @@
+Node: farm1914.jlab.org
+SLURM_TMPDIR is not set
+TMPDIR = /u/home/nlbucuru/tmpfs
+WORK = /u/home/nlbucuru/tmpfs/dvcs_66517249_spring2020
+
+Processing run_job.C...
+Added 181 files from /lustre24/expphy/cache/clas12/rg-b/production/recon/spring2020/torus-1/pass2/v1/dst/train/sidisdvcs/
+size of files   181

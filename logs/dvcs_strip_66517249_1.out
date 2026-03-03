@@ -1,0 +1,4 @@
+Node: farm1914.jlab.org
+SLURM_TMPDIR is not set
+TMPDIR = /u/home/nlbucuru/tmpfs
+WORK = /u/home/nlbucuru/tmpfs/dvcs_66517251_spring2019

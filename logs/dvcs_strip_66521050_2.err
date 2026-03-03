@@ -1,0 +1,247 @@
+Unloading gemc/5.12 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/geant4/modules/gemc/.common" line 8)
+        invoked from within
+    "source [file dirname $ModulesCurrentModulefile]/.common"
+        (file "/cvmfs/oasis.opensciencegrid.org/jlab/geant4/modules/gemc/5.12"
+    line 12)
+    Please contact <root@localhost>
+
+Unloading .mlibrary/1.9 <aL>
+  ERROR: Dependent gemc/5.12 is loaded
+
+Unloading .cmag/1.1 <aL>
+  ERROR: Dependent gemc/5.12 is loaded
+
+Unloading .scons_bm/1.14 <aL>
+  ERROR: Dependent .mlibrary/1.9 and gemc/5.12 are loaded
+
+Unloading geant4/10.7.4 <aL>
+  ERROR: Dependent .mlibrary/1.9 and gemc/5.12 are loaded
+
+Unloading sim_system <aL>
+  ERROR: Dependent geant4/10.7.4 and gemc/5.12 are loaded
+
+Unloading .qt/system <aL>
+  ERROR: Dependent geant4/10.7.4 is loaded
+
+Unloading .xercesc/3.2.5 <aL>
+  ERROR: Dependent geant4/10.7.4 is loaded
+
+Unloading .clhep/2.4.7.1 <aL>
+  ERROR: Dependent geant4/10.7.4 is loaded
+
+Unloading sim <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/sim" line
+    6)
+    Please contact <root@localhost>
+
+Unloading mcgen/3.18 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/mcgen/.common" line 10)
+        invoked from within
+    "source [file dirname $ModulesCurrentModulefile]/.common"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/mcgen/3.18" line 6)
+    Please contact <root@localhost>
+
+Unloading clas12root/1.9.0 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/clas12root/.common" line 5)
+        invoked from within
+    "source [file dirname $ModulesCurrentModulefile]/.common"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/clas12root/1.9.0" line 10)
+    Please contact <root@localhost>
+
+Unloading iguana/1.1.0 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/iguana/.common-v1" line 10)
+        invoked from within
+    "source [file dirname $ModulesCurrentModulefile]/.common-v1"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/iguana/1.1.0" line 7)
+    Please contact <root@localhost>
+
+Unloading denoise/4.2.3 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/denoise/../denoise/.common" line 8)
+        invoked from within
+    "source [file dirname $ModulesCurrentModulefile]/../$name/.common"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/denoise/4.2.3" line 5)
+    Please contact <root@localhost>
+
+Unloading hipo/4.3.0 <aL>
+  ERROR: Dependent denoise/4.2.3 and iguana/1.1.0 and clas12root/1.9.0 are
+    loaded
+
+Unloading qadb/3.4.1 <aL>
+  ERROR: Dependent clas12root/1.9.0 is loaded
+
+Unloading root/6.36.04 <aL>
+  ERROR: Dependent iguana/1.1.0 and clas12root/1.9.0 and mcgen/3.18 are loaded
+
+Unloading julia/1.10.2 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/julia/1.10.2" line 9)
+    Please contact <root@localhost>
+
+Unloading cmake/3.29.0 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/cmake/3.29.0" line 7)
+    Please contact <root@localhost>
+
+Unloading util/dev <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/util/dev"
+    line 11)
+    Please contact <root@localhost>
+
+Unloading ccdb/1.99.7 <aL>
+  ERROR: Dependent util/dev and clas12root/1.9.0 are loaded
+
+Unloading rcdb/1.99.7 <aL>
+  ERROR: Dependent util/dev is loaded
+
+Unloading python/3.13.7 <aL>
+  ERROR: Dependent rcdb/1.99.7 and ccdb/1.99.7 and util/dev and iguana/1.1.0 are
+    loaded
+
+Unloading mon12/7.14 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/mon12/../mon12/.common" line 9)
+        invoked from within
+    "source [file dirname $ModulesCurrentModulefile]/../$name/.common"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/mon12/7.14" line 5)
+    Please contact <root@localhost>
+
+Unloading coatjava/13.5.2 <aL>
+  ERROR: Dependent mon12/7.14 is loaded
+
+Unloading ced/1.9.6 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/ced/../ced/.common" line 5)
+        invoked from within
+    "source [file dirname $ModulesCurrentModulefile]/../$name/.common"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/ced/1.9.6" line 5)
+    Please contact <root@localhost>
+
+Unloading groovy/4.0.20 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/groovy/4.0.20" line 5)
+    Please contact <root@localhost>
+
+Unloading maven/3.9.11 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "home" line 3)
+        invoked from within
+    "home"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/maven/../maven/.common" line 7)
+        invoked from within
+    "source [file dirname $ModulesCurrentModulefile]/../$name/.common"
+        (file
+    "/cvmfs/oasis.opensciencegrid.org/jlab/hallb/clas12/sw/modulefiles/maven/3.9.11" line 5)
+    Please contact <root@localhost>
+
+Unloading jdk/21.0.2 <aL>
+  ERROR: Dependent coatjava/13.5.2 is loaded
+
+Unloading cernlib/2023 <aL>
+  Module ERROR: couldn't create error file for command: no space left on device
+        while executing
+    "exec dirname $x"
+        (procedure "base" line 3)
+        invoked from within
+    "base"
+        (file "/scigroup/cvmfs/scicomp/sw/el9/modulefiles/cernlib/2023" line 4)
+    Please contact <root@localhost>
+
+Unloading system <aL>
+  ERROR: Dependent ccdb/1.99.7 and hipo/4.3.0 and denoise/4.2.3 and iguana/1.1.0
+    and mcgen/3.18 are loaded
+Loading tmpfs/auto <aL>
+  WARNING: Using /u/home/nlbucuru/tmpfs for $TMPDIR.
+
+Loading clas12/5.6
+  ERROR: Load of requirement .scons_bm/1.15 failed
+  Loading requirement: scicomp tmpfs/auto apptainer
+slurmstepd: error: *** JOB 66521050 ON farm1926 CANCELLED AT 2026-02-28T13:17:51 DUE TO TIME LIMIT ***
