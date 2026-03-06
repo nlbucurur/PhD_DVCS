@@ -113,7 +113,7 @@ static void add_files_from_dir(TChain *chain,
 // ------------------------
 // Backward-compatible: hipochain("spring2019","whatever") still works for DATA.
 // New usage: hipochain("spring2019_mc","",true) for MC (chains all *.hipo in 10362+10363).
-TChain *hipochain(std::string runs,
+TChain *hipochain_main(std::string runs,
                   std::string chains,
                   bool is_mc = false,
                   std::string file_prefix = "")
@@ -148,4 +148,11 @@ TChain *hipochain(std::string runs,
     std::cout << std::endl;
 
     return chain;
+}
+
+TChain *hipochain(std::string runs, std::string chains)
+{
+    const bool is_mc = (runs.find("_mc") != std::string::npos) ||
+                       (runs.find("-mc") != std::string::npos);
+    return hipochain_main(runs, chains, is_mc, "");
 }

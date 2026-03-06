@@ -5,10 +5,10 @@ void run_all()
 {
     gROOT->ProcessLine(".L analysis_DVCS_preskimmed_fiducials_NID.C+");
     gROOT->ProcessLine(".L run_DVCS.C+");
-    gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2019\");");
+    // gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2019\");");
     gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"fall2019\");");
-    gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2020\");");
-    gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2019_mc\");");
-    gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2019_mc_10_6\");");
-    gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2019_mc_10_2\");");
+    // gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2020\");");
+    // gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2019_mc\");");
+    // gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2019_mc_10_6\");");
+    // gROOT->ProcessLine("run_DVCS(\"pDVCS\",\"spring2019_mc_10_2\");");
 }

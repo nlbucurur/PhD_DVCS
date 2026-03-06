@@ -9,6 +9,9 @@
 void analysis::Loop(bool simu = false)
 {
 
+    long long n_read = 0;
+    long long n_written = 0;
+
     Target_Vec.SetXYZT(0, 0, 0, Dmass);
     PTarget_Vec.SetXYZT(0, 0, 0, Pmass);
     NTarget_Vec.SetXYZT(0, 0, 0, Nmass);
@@ -49,6 +52,8 @@ void analysis::Loop(bool simu = false)
 
         while (reader.next() == true)
         {
+
+            n_read++;
 
             ClearVectors(3);
 
@@ -455,14 +460,20 @@ void analysis::Loop(bool simu = false)
             {
                 build_tree(PTarget_Vec, El_Vec_, El_info_, Pr_Vec_, Pr_info_, Ph_Vec_, Ph_info_);
                 if (strip_Q2.size() != 0)
+                {
                     pDVCS_tree->Fill();
+                    n_written++;
+                }
             }
             // nDVCS tree
             if (channels == "nDVCS") // && Pim_Vec_.size()==0 && Pip_Vec_.size()==0 && Pr_Vec_.size()==0)
             {
                 build_tree(NTarget_Vec, El_Vec_, El_info_, N_Vec_, N_info_, Ph_Vec_, Ph_info_, fN_info_);
                 if (strip_Q2.size() != 0)
+                {
                     nDVCS_tree->Fill();
+                    n_written++;
+                }
             }
         }
     }
@@ -474,6 +485,8 @@ void analysis::Loop(bool simu = false)
         nDVCS_tree->Write();
 
     outfile->Close();
+    cout << "Number of events read: " << n_read << endl;
+    cout << "Number of events written: " << n_written << endl;
 }
 
 void analysis::build_tree(TLorentzVector NucTarget_Vec, vector<TLorentzVector> electron, vector<vector<double>> electron_inf, vector<TLorentzVector> nucleon, vector<vector<double>> nucleon_inf, vector<TLorentzVector> photon, vector<vector<double>> photon_inf)
