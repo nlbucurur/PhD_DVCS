@@ -2,7 +2,7 @@
 *.root
 Histograms/*.root
 *.hipo
-*.dat
+# *.dat
 *.csv
 
 # build
