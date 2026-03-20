@@ -1,0 +1,87 @@
+Erasing previous file content
+
+Number of events 10000
+Ebeam is set to 10.6 GeV
+process is set to 0 
+targ_A is set to 2 
+targ_Z is set to 1 
+x_min is set to 0.001 
+x_max is set to 1 
+y_min is set to 0.001 
+y_max is set to 1 
+Q2_min is set to 0.9 GeV^2
+Q2_max is set to 10 GeV^2
+W2_min is set to 4 GeV^2
+W2_max is set to 20 GeV^2
+nu_min is set to 0.3 GeV
+nu_max is set to 11 GeV
+t_min is set to -2 GeV
+t_max is set to 0 GeV
+ycol_min is set to -999 
+ycol_max is set to 0.025 
+vx is set to 0 cm 
+vy is set to 0 cm 
+vz is set to -3 cm 
+raster_x is set to 0 cm 
+raster_y is set to 0 cm 
+Storing chosen options
+Time seed
+Your target is deut
+Reading GPD table
+Initialization
+Start event loop
+t check 
+9.47535  8.809  8.809  0.995303  -1.16089
+1.1111  1.71111  1.71111  0.865765  -1.16767
+0.0435408 -1 0.0670457 0.513914 0.0435408 0 0.0670457 -0.857842 0.999052 0.99775
+
+t check 
+8.64885  7.89886  7.89886  0.99377  -1.8439
+0.332831  1.57769  1.57769  0.834695  -1.82061
+0.0766398 -1 0.129806 -0.517389 0.0766398 0 0.129806 0.855751 0.997059 0.991539
+
+t check 
+8.64449  8.24253  8.24253  0.996086  -0.717447
+1.38564  1.74966  1.74966  0.907887  -0.725167
+0.0707001 -1 0.0791519 -0.306982 0.0707001 0 0.0791519 0.951715 0.997498 0.996863
+
+t check 
+7.85743  7.18613  7.18613  0.991116  -1.29925
+1.30388  1.69617  1.69617  0.82426  -1.30925
+0.0817463 -1 0.105558 -0.00356718 0.0817463 0 0.105558 -0.999994 0.996653 0.994413
+
+t check 
+5.58601  4.74504  4.74504  0.978583  -1.64059
+0.89393  1.34793  1.34793  0.690087  -1.63755
+0.0209168 1 0.193343 -0.577001 0.0209168 0 0.193343 -0.816744 0.999781 0.981131
+
+initial Number of events              10000
+Number of hit neutrons                1956520
+Number of hit protons                 1954139
+Number of events kept   10000
+Number of events rejected   3900659
+Number of hit neutron events kept   0
+Number of hit proton events kept   0
+Number of events Out of kin. limits   8468711
+Number of events Out of t limits   0
+Number of events Out of t limits 2  0
+Number of events Out of t limits (tmin)  3276
+Number of events Out of nu limits   3438022
+Number of events Out of W2 limits   5027408
+Number of events Out of Q2 limits   0
+Number of events Out of xb limits   0
+Number of events Out of y limits   0
+Number of events Out of nup limits   0
+Number of events Out of Ep limits   0
+Number of events Out of limits within the fmotion routine  5
+Number of events Out of xsec limits   0
+kinem. limits :
+xbjmin   =  0.0452517;    xbjmax   =   0.762095
+ymin     =   0.101813;    ymax     =   0.997457
+numin    =   0.768072;    numax    =     10.574
+Q2min    =   0.900006;    Q2max    =         10
+W2min    =          4;    W2max    =         20
+tmin     =         -2;    tmax     = -0.00367072
+nupmin   =    0.75686;    nupmax   =    10.5906
+Epmin    =   0.938601;    Epmax    =     4.2709
+
